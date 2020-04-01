@@ -1,6 +1,6 @@
 <?php
 
-use JZWeb\Geetest\Geetest;
+use JZG\Geetest\Geetest;
 use Illuminate\Console\Scheduling\Event;
 
 class GeetestTest extends PHPUnit_Framework_TestCase
