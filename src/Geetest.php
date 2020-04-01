@@ -1,4 +1,4 @@
-<?php namespace jzWeb\Geetest;
+<?php namespace JZWeb\Geetest;
 
 use Illuminate\Support\Facades\Facade;
 
