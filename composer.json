@@ -1,10 +1,10 @@
 {
-  "name": "jzweb/geetest",
+  "name": "yidejia/geetest",
   "description": "Geetest Package for JZWeb",
   "keywords": [
     "Geetest",
     "Laravel",
-    "jzweb",
+    "yidejia",
     "nelsons"
   ],
   "license": "MIT",
