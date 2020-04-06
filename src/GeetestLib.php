@@ -66,12 +66,12 @@ class GeetestLib
 		$this->private_key = Config::get('geetest.key');
 	}
 
-	/**
-	 * Check Geetest server is running or not.
-	 *
-	 * @param null $user_id
-	 * @return int
-	 */
+    /**
+     * Check Geetest server is running or not.
+     * @param $param
+     * @param int $new_captcha
+     * @return int
+     */
 	public function preProcess($param, $new_captcha = 1)
 	{
 		$data = [
@@ -84,7 +84,7 @@ class GeetestLib
 		$challenge = $this->sendRequest($url);
 
 		if (strlen($challenge) != 32) {
-			$this->failbackProcess();
+			$this->failBackProcess();
 			return 0;
 		}
 		$this->successProcess($challenge);
@@ -109,7 +109,7 @@ class GeetestLib
 	/**
 	 *
 	 */
-	private function failbackProcess()
+	private function failBackProcess()
 	{
 		$rnd1 = md5(rand(0, 100));
 		$rnd2 = md5(rand(0, 100));
@@ -141,15 +141,14 @@ class GeetestLib
 		return $this->response;
 	}
 
-	/**
-	 * Get success validate result.
-	 *
-	 * @param      $challenge
-	 * @param      $validate
-	 * @param      $seccode
-	 * @param null $user_id
-	 * @return int
-	 */
+    /** Get success validate result.
+     * @param $challenge
+     * @param $validate
+     * @param $seccode
+     * @param $param
+     * @param int $json_format
+     * @return int
+     */
 	public function successValidate($challenge, $validate, $seccode, $param, $json_format = 1)
 	{
 		if (! $this->checkValidate($challenge, $validate)) {
@@ -166,6 +165,7 @@ class GeetestLib
 		$query = array_merge($query, $param);
 		$url = "http://api.geetest.com/validate.php";
 		$codevalidate = $this->postRequest($url, $query);
+
 		$obj = json_decode($codevalidate, true);
 		if ($obj === false) {
 			return 0;
@@ -252,11 +252,11 @@ class GeetestLib
 		}
 	}
 
-	/**
-	 * @param       $url
-	 * @param array $postdata
-	 * @return mixed|string
-	 */
+    /**
+     * @param $url
+     * @param string $postdata
+     * @return bool|mixed|string
+     */
 	private function postRequest($url, $postdata = '')
 	{
 		if (! $postdata) {
@@ -308,9 +308,11 @@ class GeetestLib
 		trigger_error($err);
 	}
 
-	/**
-	 * @param string $product
-	 */
+    /**
+     * @param string $product
+     * @param string $captchaId
+     * @return mixed
+     */
 	public function render($product = 'float', $captchaId = 'geetest-captcha')
 	{
 		return view('geetest::geetest', [

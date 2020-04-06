@@ -6,8 +6,6 @@ return [
 	| Config Language
 	|--------------------------------------------------------------------------
 	|
-	| Here you can config your yunpian api key from yunpian provided.
-	|
 	| Options: ['zh-cn', 'zh-tw', 'en', 'ja', 'ko']
 	|
 	*/
@@ -18,8 +16,6 @@ return [
 	| Config Geetest Id
 	|--------------------------------------------------------------------------
 	|
-	| Here you can config your yunpian api key from yunpian provided.
-	|
 	*/
 	'id' => env('GEETEST_ID'),
 
@@ -27,8 +23,6 @@ return [
 	|--------------------------------------------------------------------------
 	| Config Geetest Key
 	|--------------------------------------------------------------------------
-	|
-	| Here you can config your yunpian api key from yunpian provided.
 	|
 	*/
 	'key' => env('GEETEST_KEY'),
