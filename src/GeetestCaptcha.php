@@ -13,13 +13,12 @@ trait GeetestCaptcha
     {
         $ip = Request::ip();
         $data = [
-            'user_id' => @Auth::user() ? @Auth::user()->id : md5($ip),
+            'user_id' => 'UnLoginUser',
             'client_type' => 'web',
             'ip_address' => $ip
         ];
-        $status = Geetest::preProcess($data);
-        session()->put($ip . 'gt_server', $status);
-        session()->put('user_id', $data['user_id']);
+        Geetest::preProcess($data);
+
         echo Geetest::getResponseStr();
     }
 }

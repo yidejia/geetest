@@ -27,23 +27,17 @@ class GeetestServiceProvider extends ServiceProvider
 
         Validator::extend('geetest', function () {
             list($geetest_challenge, $geetest_validate, $geetest_seccode) = array_values(\request()->only('geetest_challenge', 'geetest_validate', 'geetest_seccode'));
-            $ip = \request()->ip();
+
             $data = [
-                'user_id' => @Auth::user() ? @Auth::user()->id : 'UnLoginUser',
+                'user_id' => 'UnLoginUser',
                 'client_type' => 'web',
-                'ip_address' => $ip
+                'ip_address' => \request()->ip()
             ];
-            if (session()->get($ip . 'gt_server') == 1) {
-                if (Geetest::successValidate($geetest_challenge, $geetest_validate, $geetest_seccode, $data)) {
-                    return true;
-                }
-                return false;
-            } else {
-                if (Geetest::failValidate($geetest_challenge, $geetest_validate, $geetest_seccode)) {
-                    return true;
-                }
-                return false;
+
+            if (Geetest::successValidate($geetest_challenge, $geetest_validate, $geetest_seccode, $data)) {
+                return true;
             }
+
         });
 
         Blade::extend(function ($value) {
